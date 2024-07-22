@@ -71,7 +71,7 @@ Resources:
     Properties:
       FunctionName: !Sub '${Stage}-books-get-all'
       CodeUri: ./src/books/get-all/
-      Handler: src/index.handler
+      Handler: src/books/index.handler
       AutoPublishAlias: !Ref Stage
       DeploymentPreference:
         Type: !If [IsProduction, Linear10PercentEvery1Minute, AllAtOnce]        
@@ -97,7 +97,7 @@ Resources:
     Properties:
       FunctionName: !Sub '${Stage}-books-create'
       CodeUri: ./src/books/create/
-      Handler: src/index.handler
+      Handler: src/books/index.handler
       AutoPublishAlias: !Ref Stage
       DeploymentPreference:
         Type: !If [IsProduction, Linear10PercentEvery1Minute, AllAtOnce]
@@ -191,7 +191,7 @@ Resources:
     Properties:
       FunctionName: !Sub '${Stage}-books-create-pre-traffic-check'
       CodeUri: ./src/books/create-pre-traffic/
-      Handler: src/index.handler
+      Handler: src/books/index.handler
       Environment:
         Variables:
           TABLE: !Ref BooksTable
