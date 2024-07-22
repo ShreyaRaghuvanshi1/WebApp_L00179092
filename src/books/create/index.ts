@@ -4,7 +4,7 @@
 import { APIGatewayProxyResult } from 'aws-lambda';
 import * as AWSCore from 'aws-sdk';
 import * as AWSXRay from 'aws-xray-sdk-core';
-
+ 
 let AWS;
 
 const ddbOptions: AWSCore.DynamoDB.Types.ClientConfiguration = {
