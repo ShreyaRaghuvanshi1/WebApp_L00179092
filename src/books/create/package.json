@@ -2,7 +2,7 @@
   "name": "books-create",
   "version": "1.0.0",
   "description": "Lambda function to create a book",
-  "main": "index.mjs",
+  "main": "index.ts",
   "scripts": {
     "prebuild": "mkdir -p dist",
     "copy-deps": "cp -r node_modules dist",
