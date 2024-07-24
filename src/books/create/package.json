@@ -12,7 +12,6 @@
   },
   "author": "Amazon Web Services",
   "license": "ISC",
-  "type": "module",
   "devDependencies": {
     "@types/aws-lambda": "^8.10.64",
     "@types/chai": "^4.2.13",
