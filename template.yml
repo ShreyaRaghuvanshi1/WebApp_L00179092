@@ -197,15 +197,16 @@ Resources:
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref BooksTable
-        - PolicyName: CodeDeployPolicy
+        - PolicyName: AllowLifecycleEventHookExecution
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
               - Effect: Allow
                 Action:
                   - codedeploy:PutLifecycleEventHookExecutionStatus
-                Resource: !Sub 'arn:aws:codedeploy:${AWS::Region}:${AWS::AccountId}:deploymentgroup:${ServerlessDeploymentApplication}/*'
-        - PolicyName: LambdaInvokePolicy
+                Resource:
+                  !Sub 'arn:aws:codedeploy:${AWS::Region}:${AWS::AccountId}:deploymentgroup:${ServerlessDeploymentApplication}/*'
+        - PolicyName: AllowLambdaInvoke
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
@@ -221,9 +222,9 @@ Resources:
       ComparisonOperator: GreaterThanThreshold
       Dimensions:
         - Name: Resource
-          Value: !Sub '${CreateBook}:${Stage}'
+          Value: !Sub '${GetAllBooks}:${Stage}'
         - Name: FunctionName
-          Value: !Ref CreateBook
+          Value: !Ref GetAllBooks
       EvaluationPeriods: 2
       MetricName: Errors
       Namespace: AWS/Lambda
@@ -238,9 +239,9 @@ Resources:
       ComparisonOperator: GreaterThanThreshold
       Dimensions:
         - Name: Resource
-          Value: !Sub '${GetAllBooks}:${Stage}'
+          Value: !Sub '${CreateBook}:${Stage}'
         - Name: FunctionName
-          Value: !Ref GetAllBooks
+          Value: !Ref CreateBook
       EvaluationPeriods: 2
       MetricName: Errors
       Namespace: AWS/Lambda
