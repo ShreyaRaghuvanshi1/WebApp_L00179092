@@ -16,8 +16,6 @@ Conditions:
   IsProduction: !Equals [ !Ref Stage, production ]
 
 Globals:
-  Api:
-    OpenApiVersion: 3.0.1 # to avoid default stage creation
   Function:
     Runtime: nodejs20.x
     MemorySize: 128
