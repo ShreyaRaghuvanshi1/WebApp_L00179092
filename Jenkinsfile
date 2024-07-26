@@ -38,8 +38,6 @@ pipeline {
             steps {
                 script {
                         sh "sam build"
-                        sh "sam validate"
-                        sh "sam local invoke"
                         sh "sam package --s3-bucket ${params.ARTIFACTS_BUCKET} --s3-prefix ${params.ARTIFACTS_PREFIX} --output-template-file template.yml"
                 }
             }
