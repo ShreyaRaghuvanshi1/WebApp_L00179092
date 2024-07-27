@@ -14,7 +14,7 @@ Conditions:
 
 Globals:
   Function:
-    Runtime: nodejs20.x
+    Runtime: nodejs16.x
     MemorySize: 128
     Timeout: 5
     Tracing: Active
