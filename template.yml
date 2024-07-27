@@ -1,3 +1,6 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: MIT-0
+
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
 
@@ -13,6 +16,8 @@ Conditions:
   IsProduction: !Equals [ !Ref Stage, production ]
 
 Globals:
+  Api:
+    OpenApiVersion: 3.0.1 # to avoid default stage creation
   Function:
     Runtime: nodejs16.x
     MemorySize: 128
@@ -197,23 +202,19 @@ Resources:
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref BooksTable
-        - PolicyName: AllowLifecycleEventHookExecution
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-              - Effect: Allow
-                Action:
-                  - codedeploy:PutLifecycleEventHookExecutionStatus
-                Resource:
-                  !Sub 'arn:aws:codedeploy:${AWS::Region}:${AWS::AccountId}:deploymentgroup:${ServerlessDeploymentApplication}/*'
-        - PolicyName: AllowLambdaInvoke
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-              - Effect: Allow
-                Action:
-                  - lambda:InvokeFunction
-                Resource: !Ref CreateBook.Version
+        - Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+              - codedeploy:PutLifecycleEventHookExecutionStatus
+            Resource:
+              !Sub 'arn:aws:codedeploy:${AWS::Region}:${AWS::AccountId}:deploymentgroup:${ServerlessDeploymentApplication}/*'
+        - Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+              - lambda:InvokeFunction
+            Resource: !Ref CreateBook.Version
 
   CreateBookAliasErrorMetricGreaterThanZeroAlarm:
     Type: AWS::CloudWatch::Alarm
